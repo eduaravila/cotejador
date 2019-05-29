@@ -1,0 +1,66 @@
+.act {
+  font-weight: bold;
+}
+.nav-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo {
+  color: #fd1717;
+  font-size: 2rem;
+}
+.logo-texto {
+  font-family: "Dosis", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition-duration: 1s;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+.logo-texto:hover {
+  border-radius: 1rem;
+  background: #80808054;
+  padding: 0.5rem;
+}
+.contenido {
+  width: 95%;
+  margin-top: 1rem;
+  background-color: #eee;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+.edicion-btn {
+  font-size: 2rem;
+  color: blue;
+  opacity: 0.5;
+  transition-duration: 1s;
+}
+.eliminar-gallo {
+  color: red;
+}
+.edicion-btn:hover {
+  font-size: 2rem;
+  color: blue;
+  opacity: 1;
+}
+.eliminar-gallo:hover {
+  color: red;
+  opacity: 1;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.navbar {
+  width: 100%;
+}
+.card-body {
+  border: 1px solid black;
+}
