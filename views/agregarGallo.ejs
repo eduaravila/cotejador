@@ -1,6 +1,7 @@
 <%- include('layouts/header.ejs') %> <%- include('layouts/nav.ejs') %>
 
 <div class="contenido">
+  <h1><%=nombre_equipo%></h1>
   <form action="/agregar/gallo" method="POST">
     <div class="form-row">
       <div class="form-group col-md-6">
@@ -17,7 +18,8 @@
       <div class="form-group col-md-6">
         <label for="inputPassword4">Peso</label>
         <input
-          type="number"body
+          type="number"
+          body
           required
           max="99999"
           name="peso"

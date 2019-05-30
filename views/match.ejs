@@ -1,0 +1,58 @@
+<%- include('layouts/header.ejs') %> <%- include('layouts/nav.ejs') %>
+
+<div class="contenido">
+  <div class="contenido-header">
+    <h1>matcheo</h1>
+    <a
+      type="button"
+      href="/boletos"
+      target="_blank"
+      class="btn btn-dark text-light"
+      >Generar entradas</a
+    >
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Equipo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Anillo</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Peso</th>
+        <th scope="col">VS</th>
+
+        <th scope="col">Peso</th>
+        <th scope="col">Categoria</th>
+
+        <th scope="col">Anillo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Equipo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% matches.forEach(function(match,index){ %>
+      <tr>
+        <th scope="row"><%=index%></th>
+        <th scope="row"><%=match.retado.equipo.nombre%></th>
+        <td><%=match.retado.nombre%></td>
+        <td><%=match.retado.anillo%></td>
+        <td><%=match.retado.categoria%></td>
+
+        <td><%=match.retado.peso%></td>
+        <td>Vs</td>
+        <% if(!!match.retador){ %>
+        <td><%=match.retador.peso%></td>
+        <td><%=match.retado.categoria%></td>
+
+        <td><%=match.retador.anillo%></td>
+        <td><%=match.retador.nombre%></td>
+        <th scope="row"><%=match.retador.equipo.nombre%></th>
+        <%}%>
+      </tr>
+      <% })%>
+    </tbody>
+  </table>
+</div>
+
+<%- include('layouts/fotter.ejs') %>

@@ -5,10 +5,12 @@ const uuid = require("uuid/v4");
 const getAgregarGallo = async (req, res, next) => {
   try {
     let equipo = req.params.equipo;
+    let nombre_equipo = await partidos.findById(equipo);
 
     res.render("agregarGallo", {
       titulo: "Agregar Gallo",
-      equipo
+      equipo,
+      nombre_equipo: nombre_equipo.nombre
     });
   } catch (error) {
     console.log(error);
@@ -48,8 +50,8 @@ const getAgregarEquipo = (req, res, next) => {
 const postAgregarEquipo = async (req, res, next) => {
   try {
     let { nombre, id_registro } = req.body;
-    console.log(nombre,id_registro);
-    
+    console.log(nombre, id_registro);
+
     let nuevoEquipo = await new partidos({
       nombre,
       id_registro,
@@ -68,4 +70,3 @@ module.exports = {
   getAgregarEquipo,
   postAgregarEquipo
 };
-
