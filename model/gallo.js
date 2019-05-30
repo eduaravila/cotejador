@@ -25,7 +25,14 @@ const galloSchema = new schema({
     required: true
   }
 });
-
+galloSchema.statics.eliminar_gallos = async function(equipo_id) {
+  try {
+    await this.deleteMany({ equipo: equipo_id });
+    return Promise.resolve(this);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 const gallo = mongoose.model("Gallo", galloSchema);
 
 module.exports = gallo;

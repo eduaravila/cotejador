@@ -20,6 +20,32 @@ const partidosSchema = new schema({
   ]
 });
 
+partidosSchema.statics.eliminar_gallo = async function(id_gallo, id_equipo) {
+  try {
+    let equipo = await this.findById(id_equipo);
+    console.log(equipo);
+
+    equipo.gallos = equipo.gallos.filter(i => i != id_gallo);
+    await equipo.save();
+    return Promise.resolve(this);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+partidosSchema.statics.agregar_gallo = async function(id_gallo, id_equipo) {
+  try {
+    let equipo = await this.findById(id_equipo);
+    console.log(equipo);
+
+    equipo.gallos = [...equipo.gallos, id_gallo];
+    await equipo.save();
+    return Promise.resolve(this);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 const partidos = mongoose.model("Partido", partidosSchema);
 
 module.exports = partidos;

@@ -1,13 +1,13 @@
 <%- include('layouts/header.ejs') %> <%- include('layouts/nav.ejs') %>
 
 <div class="contenido">
-  <% if(error) {%>
+  <% if(error || resultados.length<=0 ) {%>
   <h1>No hay ningun partido registrado</h1>
   <% }else{ %> <%resultados.forEach(function(resultado,ind){%>
   <div class="accordion" id="accordeonCotejador">
     <div class="card">
       <div class="card-header" id="<%=resultado._id%>">
-        <h2 class="mb-0">
+        <h2 class="mb-0 equipo">
           <button
             class="btn btn-link"
             type="button"
@@ -16,8 +16,34 @@
             aria-expanded="true"
             aria-controls="<%=resultado.nombre%>"
           >
-            <%= resultado.nombre%>
+          <h3>
+          <span class="badge badge-secondary">
+                        <%= resultado.nombre%>
+          </span>
+        </h3>
           </button>
+          <div>
+            <a
+              type="button"
+              class="btn btn-primary"
+              href="/agregar/gallo/<%=resultado._id%>"
+            >
+              Agregar
+              <span class="badge badge-primary"
+                ><i class="fas fa-plus-square"></i
+              ></span>
+            </a>
+            <button
+              type="button"
+              class="btn btn-lg btn-danger confirmacion"
+              data-toggle="popover"
+              title="Eliminar equipo"
+              id="confirmacion<%=resultado._id%>"
+              link-eliminar="/eliminar/partido/<%=resultado._id%>"
+            >
+              <i class="fas fa-eraser"></i>
+            </button>
+          </div>
         </h2>
       </div>
 
@@ -28,13 +54,15 @@
         data-parent="#accordeonCotejador"
       >
         <div class="card-body">
-          <% if(resultado.gallos.lenght <0) { %>
+          <% if(resultado.gallos.length >0) { %>
           <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">NUM</th>
                 <th scope="col">Nombre</th>
+                <th scope="col">Peso</th>
+                <th scope="col">Categoria</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
               </tr>
@@ -42,15 +70,22 @@
             <tbody>
               <% resultado.gallos.forEach(function(gallo,indx){%>
               <tr>
-                <th scope="row"><%= ind%></th>
+                <th scope="row">
+                  <span class="badge badge-pill badge-info"><%= ind%></span>
+                </th>
                 <td><%= gallo.anillo%></td>
-                <td><%= resultado.nombre%></td>
+                <td><%= gallo.nombre%></td>
+                <td><%= gallo.peso%></td>
+                <td><%= gallo.categoria%></td>
+
                 <td class="edicion-btn">
-                  <i
-                    class="fas fa-pen-square"
-                    id-gallo="<%= gallo._id%>"
-                    nombre-gallo="<%= gallo.nombre%>"
-                  ></i>
+                  <a href="/editar/gallo/<%=gallo._id%>">
+                    <i
+                      class="fas fa-pen-square"
+                      id-gallo="<%= gallo._id%>"
+                      nombre-gallo="<%= gallo.nombre%>"
+                    ></i>
+                  </a>
                 </td>
                 <td
                   data-toggle="modal"
@@ -68,7 +103,19 @@
             </tbody>
           </table>
           <%}else{%>
-          <h1>Sin gallos registrados</h1>
+          <div class="gallos-registrar">
+            <h1>Sin gallos registrados</h1>
+            <a
+              href="/agregar/gallo/<%=resultado._id%>"
+              type="button"
+              class="btn btn-primary"
+            >
+              Agregar
+              <span class="badge badge-primary"
+                ><i class="fas fa-plus-square"></i
+              ></span>
+            </a>
+          </div>
           <%}%>
         </div>
       </div>
@@ -106,31 +153,49 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Cerrar
         </button>
-        <form action="" method="GET" class="form-modal-confirmar">
-          <button type="submit" class="btn btn-danger">ELIMINAR</button>
-        </form>
       </div>
-    </div>
+
+      <button type="submit" class="btn btn-danger">ELIMINAR</button>
+    </form>
   </div>
 </div>
-<%- include('layouts/fotter.ejs') %>
-<script>
-  $(".collapse").collapse();
+</div>
+</div>
 
-  let botonesEliminar = document.querySelectorAll(".eliminar-gallo");
-  let tituloModal = document.querySelector(".modal-title");
-  let formConfirmar = document.querySelector(".form-modal-confirmar");
-  const eliminarClick = e => {
-    console.log("====================================");
-    console.log(e.target);
-    tituloModal.innerHTML = e.target.getAttribute("nombre-gallo");
-    formConfirmar.setAttribute(
-      "action",
-      `http://localhost:3000/eliminar/gallo/${e.target.getAttribute(
-        "id-gallo"
-      )}`
-    );
-    console.log("====================================");
-  };
-  botonesEliminar.forEach(e => e.addEventListener("click", eliminarClick));
-</script>
+<%- include('layouts/fotter.ejs') %>
+
+
+<script>
+  $('.collapse').collapse()
+
+  let listaCollapse = document.querySelectorAll(".confirmacion");
+          listaCollapse.forEach(i => {
+            console.log('====================================');
+            console.log(i);
+            console.log('====================================');
+            let linkCollapse = i.getAttribute("link-eliminar");
+
+            $(i).popover({
+              html: true,
+              content: `<a type="button" class="btn btn-outline-danger btn-block" href="${linkCollapse}">Eliminar</a>`
+            });
+          });
+
+          let botonesEliminar = document.querySelectorAll(".eliminar-gallo");
+          let tituloModal = document.querySelector(".modal-title");
+          let formConfirmar = document.querySelector(".form-modal-confirmar");
+          const eliminarClick = e => {
+            console.log("====================================");
+            console.log(e.target);
+            tituloModal.innerHTML = e.target.getAttribute("nombre-gallo");
+            formConfirmar.setAttribute(
+              "action",
+              `http://localhost:3000/eliminar/gallo/${e.target.getAttribute(
+                "id-gallo"
+              )}`
+            );
+            console.log("====================================");
+          };
+          botonesEliminar.forEach(e => e.addEventListener("click", eliminarClick));
+      </script>
+   

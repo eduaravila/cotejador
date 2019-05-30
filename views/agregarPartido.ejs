@@ -1,0 +1,45 @@
+<%- include('layouts/header.ejs') %> <%- include('layouts/nav.ejs') %>
+
+<div class="contenido">
+  <form action="/agregar/partido" method="POST">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="inputEmail4"
+          disabled
+          value="<%=id_registro%>"
+          name=""
+          placeholder="registro"
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="inputEmail4"
+          value="<%=id_registro%>"
+          name="id_registro"
+          placeholder="registro"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputEmail4"
+          required
+          name="nombre"
+          placeholder="Nombre"
+        />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block mt-3">
+      Registrar partido
+    </button>
+  </form>
+</div>
+<%- include('layouts/fotter.ejs') %>

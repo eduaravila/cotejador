@@ -4,10 +4,9 @@ const getIndex = async (req, res, next) => {
   try {
     let partidosDb = await partidos.find({}).populate("gallos");
     console.log("====================================");
-    console.log(partidosDb[0].gallos);
     console.log("====================================");
     res.render("index", {
-      titulo: "Hola",
+      titulo: "Cotejador",
       resultados: partidosDb,
       error: false
     });

@@ -1,0 +1,63 @@
+<%- include('layouts/header.ejs') %> <%- include('layouts/nav.ejs') %>
+
+<div class="contenido">
+  <form action="/agregar/gallo" method="POST">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputEmail4"
+          required
+          name="nombre"
+          placeholder="Nombre"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Peso</label>
+        <input
+          type="number"body
+          required
+          max="99999"
+          name="peso"
+          min="100"
+          class="form-control"
+          id="inputPassword4"
+          placeholder="Peso en gramos"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputAddress">Anillo</label>
+        <input
+          name="anillo"
+          type="number"
+          max="9999"
+          required
+          min="1000"
+          class="form-control"
+          id="inputAddress"
+          placeholder="10000000"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputState col-md-6">Categoria</label>
+        <select id="inputState" class="form-control" name="categoria">
+          <option selected value="gallo">Gallo</option>
+          <option value="pollo">pollo</option>
+          <option value="pollomacizo">Pollo macizo</option>
+          <option value="capote">capote</option>
+          <option value="pollomocho">Pollo mocho</option>
+          <option value="pollomochomacizo">pollo mocho macizo</option>
+        </select>
+      </div>
+    </div>
+    <input type="hidden" value="<%=equipo%>" name="equipo" />
+    <button type="submit" class="btn btn-primary btn-block mt-3">
+      Registrar gallo
+    </button>
+  </form>
+</div>
+<%- include('layouts/fotter.ejs') %>
